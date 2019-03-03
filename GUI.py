@@ -63,6 +63,23 @@ class Interfaz:
                 Y.append(cod[i])
                 Y.append(cod[i])
             a.plot(X,Y)
+        if val == 'RZ':
+            for i in range(len(cod)):
+                if cod[i] == 1:
+                    X.append(i)
+                    X.append(i+0.5)
+                    X.append(i+0.5)
+                    X.append(i+1)
+                    Y.append(1)
+                    Y.append(1)
+                    Y.append(0)
+                    Y.append(0)
+                else:
+                    X.append(i)
+                    X.append(i+1)
+                    Y.append(0)
+                    Y.append(0)
+            a.plot(X,Y)
         canvas = FigureCanvasTkAgg(f,master = self.v)
         canvas.get_tk_widget().grid(row = 3, column = 0, columnspan = 2,pady = (40,40))
 
