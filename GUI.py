@@ -95,7 +95,13 @@ class Interfaz:
             cod.append(int(aux[i]))
             if cod[i] not in validos:
                 messagebox.showerror(message="Cadena de bits inválida", title="Error")
-                #self.txt.delete('0.0', 'end')
+                self.txt.delete(0, END)
+                self.comboLineas.set('')
+                self.txt.focus()
+                error= True
+                val= 'empty'
+                cod=[]
+                break
         self.crearGrafico(val,cod)
 
     def mostrarI(self):
