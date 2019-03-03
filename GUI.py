@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from tkinter import messagebox
 
 
 class Interfaz:
@@ -85,12 +86,16 @@ class Interfaz:
 
     #Esta función controla el evento del combobox
     def selecciona(self, event):
+        validos = (0,1)
         cod = []
         val = self.comboLineas.get()
         aux = self.txt.get()
         aux = list(aux)
-        for i in aux:
-            cod.append(int(i))
+        for i in range(len(aux)):
+            cod.append(int(aux[i]))
+            if cod[i] not in validos:
+                messagebox.showerror(message="Cadena de bits inválida", title="Error")
+                #self.txt.delete('0.0', 'end')
         self.crearGrafico(val,cod)
 
     def mostrarI(self):
