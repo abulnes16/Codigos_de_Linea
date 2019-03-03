@@ -11,11 +11,13 @@ class Interfaz:
         self.alto = self.v.winfo_height()
         self.v.title('Proyecto II - Redes de Datos II')
         self.v.geometry('500x500')
-        
+
         self.initComponents()
+
+    def show(self):
         self.v.mainloop()
-    
-    
+
+
     def initComponents(self):
         self.v.grid_columnconfigure(1, weight = 1)
         self.titulo = Label(self.v, text= 'Graficador de codigos de linea')
@@ -32,24 +34,48 @@ class Interfaz:
         self.comboLineas['values'] = ['NRZ','RZ','AMI','ADI','B3ZS','HDB3','B6ZS','Manchester','CMI']
         self.comboLineas.configure(width = 22)
         self.comboLineas.grid(row = 2, column = 1, padx = (10,10), pady =(5,5))
-        self.crearGrafico()
+        self.comboLineas.bind("<<ComboboxSelected>>", self.selecciona)
         self.addMenu()
-        
+        #self.iniciarCanvas()
+
 
     def addMenu(self):
         self.barra = Menu(self.v)
         self.barra.add_command(label = 'Salir',command = self.v.destroy)
         self.barra.add_command(label = 'Integrantes', command = self.mostrarI)
         self.v.config(menu = self.barra)
-    
-    def crearGrafico(self):
+
+    #No sé cómo hacerlo, pero lo que quiero es que al iniciar aparezca el lienzo vacío jaja, saludos!
+    '''def iniciarCanvas(self):
+        f = Figure(figsize=(4,2.5),dpi = 100)
+        canvas = FigureCanvasTkAgg(f,master = self.v)
+        canvas.get_tk_widget().grid(row = 3, column = 0, columnspan = 2,pady = (40,40))'''
+
+    def crearGrafico(self,val,cod):
+        X = []
+        Y = []
         f = Figure(figsize=(4,2.5),dpi = 100)
         a = f.add_subplot(111)
-        a.plot([1,2,3,4,5,6,7],[4,5,2,1,7,9,10])
+        if val == 'NRZ':
+            for i in range(len(cod)):
+                X.append(i)
+                X.append(i+1)
+                Y.append(cod[i])
+                Y.append(cod[i])
+            a.plot(X,Y)
         canvas = FigureCanvasTkAgg(f,master = self.v)
         canvas.get_tk_widget().grid(row = 3, column = 0, columnspan = 2,pady = (40,40))
-        
-        
+
+    #Esta función controla el evento del combobox
+    def selecciona(self, event):
+        cod = []
+        val = self.comboLineas.get()
+        aux = self.txt.get()
+        aux = list(aux)
+        for i in aux:
+            cod.append(int(i))
+        self.crearGrafico(val,cod)
+
     def mostrarI(self):
         nombres = ['Maverick Martinez ', 'Luis Irias','Mario Zavala', 'Luis Andino', 'Angel Bulnes']
         num_cuenta = ['20141001825','2015100','20161003851','20151003836','20161000007']
@@ -63,7 +89,7 @@ class Interfaz:
         self.frame.grid(row = 0, column = 0, padx = (ancho_a*0.02, ancho_a*0.02), pady = (alto_a*0.05,alto_a*0.05))
         self.titulo = Label(self.frame,text = 'Integrantes')
         self.titulo.grid(row = 0, column = 0, columnspan = 2)
-       
+
         i = 0
         for n in nombres:
             self.lbN = Label(self.frame, text = n)
@@ -75,5 +101,6 @@ class Interfaz:
             self.lbNum.grid(row = i+1, column = 1, padx = (5,5), pady = (2,2))
             i+=1
 
-
-v = Interfaz()
+if __name__ == "__main__":
+    v = Interfaz()
+    v.show()
