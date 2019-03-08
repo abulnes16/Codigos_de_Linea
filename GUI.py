@@ -47,6 +47,7 @@ class Interfaz:
         self.barra.add_command(label = 'Integrantes', command = self.mostrarI)
         self.v.config(menu = self.barra)
 
+    #Convierte la cadena en una lista de enteros
     def lista_cadena(self, lista):
         lista_nueva = []
         for i in range(len(lista)):
@@ -115,7 +116,6 @@ class Interfaz:
                     
         
         lista_anteriores = self.lista_cadena(lista_anteriores)
-        #nuevo_binario = self.unir_listas(lista_anteriores,l30)
         #Maneja el cambio de polaridad de los 1
         polaridad = 1
         j = 0
