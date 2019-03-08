@@ -81,6 +81,28 @@ class Interfaz:
                     Y.append(0)
                     Y.append(0)
             a.plot(X,Y)
+        if val=='Manchester':
+            for i in range(len(cod)):
+                if cod[i] == 1:
+                    X.append(i)
+                    X.append(i+0.5)
+                    X.append(i+0.5)
+                    X.append(i+1)
+                    Y.append(1)
+                    Y.append(1)
+                    Y.append(-1)
+                    Y.append(-1)
+                else:
+                    X.append(i)
+                    X.append(i+0.5)
+                    X.append(i+0.5)
+                    X.append(i+1)
+                    Y.append(-1)
+                    Y.append(-1)
+                    Y.append(1)
+                    Y.append(1)
+            a.plot(X,Y)
+
         canvas = FigureCanvasTkAgg(f,master = self.v)
         canvas.get_tk_widget().grid(row = 3, column = 0, columnspan = 2,pady = (40,40))
 
@@ -98,7 +120,6 @@ class Interfaz:
                 self.txt.delete(0, END)
                 self.comboLineas.set('')
                 self.txt.focus()
-                error= True
                 val= 'empty'
                 cod=[]
                 break
