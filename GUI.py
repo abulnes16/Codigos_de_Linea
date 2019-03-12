@@ -6,6 +6,8 @@ from tkinter import messagebox
 
 
 
+
+
 class Interfaz:
     def __init__(self):
         self.v = Tk()
@@ -46,7 +48,8 @@ class Interfaz:
         self.barra.add_command(label = 'Salir',command = self.v.destroy)
         self.barra.add_command(label = 'Integrantes', command = self.mostrarI)
         self.v.config(menu = self.barra)
-
+        
+        
     #Convierte la cadena en una lista de enteros
     def lista_cadena(self, lista):
         lista_nueva = []
@@ -197,9 +200,11 @@ class Interfaz:
                        
                         
 
+
     def crearGrafico(self,val,cod):
         X = []
         Y = []
+
         f = Figure(figsize=(4,3),dpi = 100)
         a = f.add_subplot(111)
         #Impresion antes del codigo de linea
@@ -209,6 +214,7 @@ class Interfaz:
         Y.append(0)
         if val == 'NRZ':
             
+
             for i in range(len(cod)):
                 X.append(i)
                 X.append(i+1)
@@ -232,6 +238,7 @@ class Interfaz:
                     Y.append(0)
                     Y.append(0)
             a.plot(X,Y)
+
         if val == 'AMI':
             polaridad = 1
             for i in range(len(cod)):
@@ -313,10 +320,24 @@ class Interfaz:
                             Y.append(0)
                             Y.append(0)
                         polaridad = 1 
+
+        if val=='Manchester':
+            for i in range(len(cod)):
+                if cod[i] == 1:
+                    X.append(i)
+                    X.append(i+0.5)
+                    X.append(i+0.5)
+                    X.append(i+1)
+                    Y.append(1)
+                    Y.append(1)
+                    Y.append(-1)
+                    Y.append(-1)
+
                 else:
                     X.append(i)
                     X.append(i+0.5)
                     X.append(i+0.5)
+
                     X.append(i+0.5)
                     X.append(i+0.5)
                     X.append(i+1)
@@ -327,6 +348,7 @@ class Interfaz:
                     Y.append(1)
                     Y.append(1)
             a.plot(X,Y)
+
 
         if val == 'B3ZS(+v)':
             C = self.b3zs(cod,1)
@@ -357,6 +379,7 @@ class Interfaz:
 
     
         
+
     def selecciona(self, event):
         validos = (0,1)
         cod = []
@@ -366,11 +389,13 @@ class Interfaz:
         for i in range(len(aux)):
             cod.append(int(aux[i]))
             if cod[i] not in validos:
+
                 messagebox.showerror(message="Cadena de bits invalida", title="Error")
                 self.txt.delete(0, END)
                 self.comboLineas.set('')
                 self.txt.focus()
                 error= True
+
                 val= 'empty'
                 cod=[]
                 break
@@ -663,4 +688,6 @@ class Interfaz:
 
 if __name__ == "__main__":
     v = Interfaz()
+
     v.show()
+
